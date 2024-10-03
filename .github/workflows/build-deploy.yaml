@@ -64,6 +64,7 @@ jobs:
           tags: |
             type=sha,prefix=,suffix=
       - name: Build and push Docker Image
+        if: github.event_name != 'pull_request'
         uses: docker/build-push-action@v4
         with:
           context: ./staging
@@ -89,6 +90,7 @@ jobs:
           k8s-url: ${{ secrets.KUBERNETES_URL }}
           k8s-secret: ${{ secrets.KUBERNETES_SECRET }}
       - name: Deploy to the Kubernetes cluster
+        if: github.event_name != 'pull_request'    
         uses: azure/k8s-deploy@v4
         with:
           namespace: default
