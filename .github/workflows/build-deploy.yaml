@@ -11,6 +11,7 @@ env:
   CONTAINER_REGISTRY: ${{ vars.CONTAINER_REGISTRY }}
   DOCKER_HUB_USERNAME: ${{ vars.DOCKER_HUB_USERNAME }}
   DOCKER_IMAGE: accounts-admin-portal
+  K8S_NAMESPACE: commerce
 jobs:
   build:
     name: Build with node version ${{ matrix.node-version }}
@@ -93,7 +94,7 @@ jobs:
         if: github.event_name != 'pull_request'    
         uses: azure/k8s-deploy@v4
         with:
-          namespace: default
+          namespace: ${{ env.K8S_NAMESPACE }}
           manifests: |
             manifests/deployment.yaml
             manifests/service.yaml
