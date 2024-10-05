@@ -1,4 +1,5 @@
 import React from "react";
+import UserRow from "./userRow";
 
 const UserList = ({ users }) => {
   return (
@@ -12,18 +13,9 @@ const UserList = ({ users }) => {
           </tr>
         </thead>
         <tbody>
-          {
-            users.map(user =>
-              <tr>
-                <td>{user.id}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-              </tr>
-            )
-          }
+          {users.map(user => <UserRow user={user} />)}
         </tbody>
       </table>
-      
     </>
   )
 }
