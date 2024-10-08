@@ -14,11 +14,11 @@ const UserEntry = ({ save, cancel }) => {
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="email">Email</label>
-        <input type="email" className="form-control" id="email" value={email}
+        <input type="text" className="form-control" id="email" value={email}
           onChange={(e) => setEmail(e.target.value)} />
       </div>
       <div className="form-group">
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">Password</label>
         <input type="password" className="form-control" id="password" value={password}
           onChange={(e) => setPassword(e.target.value)} />
 

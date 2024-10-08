@@ -1,12 +1,12 @@
 import React from "react";
 
-const UserRow = ({user, onRemove}) => {
+const UserRow = ({user: {id, username, email}, onRemove}) => {
   return <tr>
-    <td>{user.id}</td>
-    <td>{user.username}</td>
-    <td>{user.email}</td>
+    <td>{id}</td>
+    <td>{username}</td>
+    <td>{email}</td>
     <td>
-        <button className="btn btn-danger" onClick={() => onRemove(user.id)}>Delete</button>
+        <button className="btn btn-danger" onClick={() => onRemove(id)}>Delete</button>
     </td>
   </tr>
 }

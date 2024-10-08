@@ -1,7 +1,9 @@
 import React from "react";
 import UserRow from "./userRow";
+import Toolbar from "./toolbar";
+import AddButton from "./addButton";
 
-const UserList = ({ users, remove }) => {
+const UserList = ({ users, onRemove, onAdd }) => {
   return (
     <>
       <table className="table table-hover">
@@ -14,9 +16,10 @@ const UserList = ({ users, remove }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => <UserRow user={user} onRemove={remove} />)}
+          {users.map(user => <UserRow key={user.id} user={user} onRemove={() => onRemove(user)} />)}
         </tbody>
       </table>
+      <button className="btn btn-primary" onClick={onAdd}>Add</button>
     </>
   )
 }
