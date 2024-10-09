@@ -1,7 +1,5 @@
 import React from "react";
 import UserRow from "./userRow";
-import Toolbar from "./toolbar";
-import AddButton from "./addButton";
 
 const UserList = ({ users, onRemove, onAdd }) => {
   return (
