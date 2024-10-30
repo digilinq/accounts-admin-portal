@@ -10,7 +10,6 @@ const users = [
   }
 ]
 
-
 const saveUser = (user) => {
   console.log("save user " + user.email);
 }
@@ -22,15 +21,20 @@ const removeUser = (user) => {
 const UserContainer = () => {
   const [view, setView] = useState('list');
 
-  const isShowList = view === 'list';
-  const isShowEntry = view === 'entry';
+  const selected = () => {
+    switch (view) {
+      case 'list':
+        return <UserList users={users} onAdd={() => setView('entry')} onRemove={removeUser} />;
+      case 'entry':
+        return <UserEntry save={saveUser} cancel={() => setView('list')} />;
+      default:
+        return null;
+    }
+  }
 
   return (
     <div className="container">
-      {isShowList &&
-        <UserList users={users} onAdd={() => setView('entry')} onRemove={removeUser} />}
-      {isShowEntry &&
-        <UserEntry save={saveUser} cancel={() => setView('list')} />}
+      {selected()}
     </div>
   )
 }
