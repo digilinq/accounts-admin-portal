@@ -9,7 +9,35 @@ const httpPost = async (url, data) => {
     headers: {
       "Content-type": "application/json; charset=UTF-8"
     }
-  }).then(response => response.json());
+  }).then(response => {
+    const status = response.status;
+    console.log("status: " + status);
+
+    if (!response.ok) {
+      throw new Error("HTTP error, status = " + status);
+    }
+
+    // if (status === 201) {
+    //   return "user created";
+    // }
+
+    return response.text()
+  }).then(text => {
+    if (text)
+      console.log("text:[" + text + "]");
+    return text;
+  });
 }
 
-export { httpGet, httpPost };
+const httpDelete = async (url) => {
+  return fetch(url, {
+    method: "DELETE",
+  }).then(response => {
+    const status = response.status;
+    if (!response.ok) {
+      throw new Error("HTTP error, status = " + status);
+    }
+  });
+}
+
+export { httpGet, httpPost, httpDelete };
