@@ -1,14 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserList from "./userList";
 import UserEntry from "./userEntry";
-
-const users = [
-  {
-    id: 1,
-    username: "hmohammadi",
-    email: "hossein.mohammadi@outlook.com"
-  }
-]
 
 const saveUser = (user) => {
   console.log("save user " + user.email);
@@ -19,6 +11,20 @@ const removeUser = (user) => {
 }
 
 const UserContainer = () => {
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => { 
+    console.log("fetching users");
+    setUsers([
+      {
+        id: 1,
+        username: "hmohammadi",
+        email: "hossein.mohammadi@outlook.com"
+      }
+    ]);
+  }, []);
+
   const [view, setView] = useState('list');
 
   const selected = () => {
