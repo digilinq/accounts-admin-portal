@@ -2,6 +2,25 @@ const httpGet = async (url, callback) => {
   return fetch(url).then(response => response.json());
 };
 
+async function handlePostResponse(response) {
+  // log headers
+  console.log("====== headers ======");
+  response.headers.forEach((value, name) => {
+    console.log(`${name}: ${value}`);
+  });
+
+  if (!response.ok) {
+    throw new Error(response.status);
+  }
+
+  if (response.status === 201) {
+    const location = response.headers.get('Location');
+    return await httpGet("http://localhost:8080" + location);
+  }
+
+  return response.json();
+}
+
 const httpPost = async (url, data) => {
   return fetch(url, {
     method: "POST",
@@ -10,22 +29,9 @@ const httpPost = async (url, data) => {
       "Content-type": "application/json; charset=UTF-8"
     }
   }).then(response => {
-    const status = response.status;
-    console.log("status: " + status);
-
-    if (!response.ok) {
-      throw new Error("HTTP error, status = " + status);
-    }
-
-    // if (status === 201) {
-    //   return "user created";
-    // }
-
-    return response.text()
-  }).then(text => {
-    if (text)
-      console.log("text:[" + text + "]");
-    return text;
+    return handlePostResponse(response);
+  }).catch(error => {
+    console.error("HTTP error: " + error);
   });
 }
 
